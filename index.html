@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebGL</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        #workCanvas {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+        }
+    </style>
 </head>
+
 <body onload="main()">
     <!-- * canvas -->
     <canvas id="workCanvas" width="800" height="600">
@@ -13,6 +25,20 @@
 
     <!-- * js script -->
     <script type="text/javascript" src="js/main.js"></script>
-    
+
+    <script id="vertexShaderSource" type="notjs">
+        attribute vec2 a_Position;
+        void main() {
+            gl_Position = vec4(a_Position, 0.0, 1.0);
+            gl_PointSize = 20.0;
+        }
+    </script>
+    <script id="fragmentShaderSource" type="notjs">
+        void main() {
+            gl_FragColor = vec4(1.0, 1.0, 0.0, 1.0);
+        }
+   </script>
+
 </body>
+
 </html>
