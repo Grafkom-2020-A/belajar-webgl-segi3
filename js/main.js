@@ -4,10 +4,10 @@ function main() {
 
     var vertices = [
         -0.5, 0.5, 1.0, 0.0, 0.0, // Titik A 
-        -0.5, -0.5, 1.0, 0.0, 0.0, // Titik B
+        -0.5, -0.5, 1.0, 1.0, 0.0, // Titik B
         0.5, -0.5, 1.0, 0.0, 0.0, // Titik C
         0.5, -0.5, 0.0, 0.0, 1.0, // Titik C
-        0.5, 0.5, 0.0, 0.0, 1.0, // Titik D
+        0.5, 0.5, 0.0, 1.0, 1.0, // Titik D
         -0.5, 0.5, 0.0, 0.0, 1.0 // Titik A 
     ];
 
@@ -28,10 +28,9 @@ function main() {
     gl.shaderSource(fragmentShader, fragmentShaderCode);
     gl.compileShader(fragmentShader);
 
-    // Check the compile status
+    // ! debug
     var compiled = gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS);
     if (!compiled) {
-        // Something went wrong during compilation; get the error
         console.error(gl.getShaderInfoLog(fragmentShader));
     }
 
@@ -63,7 +62,18 @@ function main() {
 
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.viewport(100, 0, canvas.height, canvas.height);
+
+    // * resize canvas
+    var displayWidth = canvas.clientWidth;
+    var displayHeight = canvas.clientHeight;
+    
+    if (canvas.width != displayWidth || canvas.height != displayHeight) {
+        canvas.width = displayWidth;
+        canvas.height = displayHeight;
+    }
+
+
+    gl.viewport(0, 0, gl.canvas.height, gl.canvas.height);
 
     var primitive = gl.TRIANGLES;
     var offset = 0;
